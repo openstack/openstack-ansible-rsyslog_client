@@ -13,19 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## APT Cache Options
-cache_timeout: 600
-
-rsyslog_client_apt_repos: []
-
-# Example override to specify which repo the packages should come from
-# rsyslog_client_apt_repos:
-#   - { repo: "ppa:adiscon/v8-stable", state: "present" }
-
-rsyslog_client_apt_packages:
-  - rsyslog
-  - logrotate
-
 rsyslog_client_spool_directory: /var/spool/rsyslog
 
 # Set the `rsyslog_client_log_dir` variable in to override log file
