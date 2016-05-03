@@ -9,3 +9,7 @@
 # is better to have this file empty, otherwise OpenStack-CI
 # will fall back to installing its default packages which
 # will potentially be detrimental to the tests executed.
+
+# Requirements for Paramiko 2.0
+libssl-dev
+libffi-dev
