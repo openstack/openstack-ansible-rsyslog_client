@@ -13,8 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: install-apt.yml
+- include: rsyslog_client_install-apt.yml
   when:
     - ansible_pkg_mgr == 'apt'
   tags:
     - install-apt
+
+- include: rsyslog_client_install-yum.yml
+  when:
+    - ansible_pkg_mgr == 'yum'
+  tags:
+    - install-yum

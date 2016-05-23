@@ -13,6 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+- name: Ensure adm group exists
+  group:
+    name: "adm"
+    state: present
+
+- name: Ensure syslog user exists
+  user:
+    name: "syslog"
+    groups: "adm"
+    system: yes
+    state: present
+
 - name: Ensure ownership on working directory is correct
   file:
     path: "{{ rsyslog_client_spool_directory }}"
