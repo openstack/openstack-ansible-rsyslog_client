@@ -32,8 +32,6 @@
   retries: 5
   delay: 2
   with_items: "{{ rsyslog_client_repos }}"
-  tags:
-    - rsyslog-client-yum-repositories
 
 - name: Install rsyslog packages
   yum:
@@ -44,5 +42,3 @@
   retries: 5
   delay: 2
   with_items: "{{ rsyslog_client_packages }}"
-  tags:
-    - rsyslog-client-yum-packages

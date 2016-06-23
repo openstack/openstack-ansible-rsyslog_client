@@ -26,5 +26,14 @@
     - always
 
 - include: rsyslog_client_pre_install.yml
+  tags:
+    - rsyslog-client-install
+
 - include: rsyslog_client_install.yml
+  tags:
+    - rsyslog-client-install
+
 - include: rsyslog_client_post_install.yml
+  tags:
+    - rsyslog-client-install
+    - rsyslog-client-config

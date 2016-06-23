@@ -31,5 +31,3 @@
     state: "directory"
     owner: "syslog"
     group: "adm"
-  tags:
-    - rsyslog-client-dirs
