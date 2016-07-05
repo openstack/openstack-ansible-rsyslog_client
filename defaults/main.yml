@@ -42,6 +42,19 @@ rsyslog_client_tcp_port: 514
 rsyslog_client_log_files: []
 
 rsyslog_client_log_rotate_file: os_aggregate_storage
+rsyslog_client_log_rotate_options:
+  - copytruncate
+  - weekly
+  - missingok
+  - rotate 14
+  - compress
+  - dateext
+  - maxage 60
+  - notifempty
+  - nocreate
+rsyslog_client_log_rotate_scripts:
+  - name: postrotate
+    content: "restart rsyslog 2>&1 || true"
 
 # Set the `rsyslog_client_user_defined_targets` to define specific log targets.
 # This option will allow you to define multiple log targets with different templates

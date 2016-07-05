@@ -35,6 +35,17 @@
           hostname: "logs-01.test.example.com"
           template: '$template LogglyFormat,"TESTING\n"'
           action_options: 'LogglyFormat'
+      rsyslog_client_log_rotate_options:
+        - copytruncate
+        - weekly
+        - missingok
+        - rotate 14
+        - compress
+        - dateext
+        - maxage 60
+        - notifempty
+        - nocreate
+        - size 1G
   post_tasks:
     - name: Open rsyslog client file
       slurp:
@@ -69,6 +80,7 @@
           - "'$ActionQueueFileName test-loggly1' in rsyslog_client_content"
           - "'/var/log/dmesg' in logrotate_client_content"
           - "'/var/log/udev' in logrotate_client_content"
+          - "'size 1G' in logrotate_client_content"
           - "rsyslog_default_file.stat.exists"
           - "rsyslog_client_file.stat.exists"
           - "logrotate_file.stat.exists"

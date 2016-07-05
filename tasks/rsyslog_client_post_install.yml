@@ -54,7 +54,7 @@
 
 - name: Write log rotate file
   template:
-    src: "os_aggregate_storage.j2"
+    src: "logrotate.j2"
     dest: "/etc/logrotate.d/{{ rsyslog_client_log_rotate_file }}"
     owner: "root"
     group: "root"
