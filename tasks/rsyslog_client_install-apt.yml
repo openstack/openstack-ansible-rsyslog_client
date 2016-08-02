@@ -41,7 +41,7 @@
 - name: Install rsyslog packages
   apt:
     pkg: "{{ item }}"
-    state: latest
+    state: "{{ rsyslog_client_package_state }}"
   register: install_packages
   until: install_packages|success
   retries: 5

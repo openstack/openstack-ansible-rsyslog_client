@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Set the package install state for distribution packages
+# Options are 'present' and 'latest'
+rsyslog_client_package_state: "latest"
+
 rsyslog_client_spool_directory: /var/spool/rsyslog
 
 # Set the `rsyslog_client_log_dir` variable in to override log file
