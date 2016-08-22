@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+## APT Cache Options
+cache_timeout: 600
+
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
 rsyslog_client_package_state: "latest"

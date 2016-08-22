@@ -13,26 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#TODO(cloudnull) Remove this task once we move to Ansible 2.1
-# where we can leverage the `yum_repository` module:
-# https://docs.ansible.com/ansible/yum_repository_module.html
-- name: Rsyslog yum repository
-  copy:
-    content: |
-      [{{ item.name }}]
-      name={{ item.name }}
-      description={{ item.description }}
-      baseurl={{ item.baseurl }}
-      gpgkey={{ item.gpgkey }}
-      gpgcheck=1
-      enabled=1
-    dest: "/etc/yum.repos.d/{{ item.file }}.repo"
-  register: add_repos
-  until: add_repos|success
-  retries: 5
-  delay: 2
-  with_items: "{{ rsyslog_client_repos }}"
-
 - name: Install rsyslog packages
   yum:
     pkg: "{{ item }}"

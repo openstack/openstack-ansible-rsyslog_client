@@ -13,11 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## APT Cache Options
-cache_timeout: 600
-
-rsyslog_client_repos: []
-
 # Example override to specify which repo the packages should come from
 # rsyslog_client_repos:
 #   - { repo: "ppa:adiscon/v8-stable", state: "present" }
