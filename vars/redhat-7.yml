@@ -13,6 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rsyslog_client_packages:
+rsyslog_client_distro_packages:
   - rsyslog
   - logrotate
