@@ -26,12 +26,23 @@
     owner: "root"
     group: "root"
 
+- name: Check if log dir exists
+  stat:
+    path: "{{ rsyslog_client_log_dir }}"
+  register: log_dir
+
 - name: Find all log files
   shell: |
     find -L '{{ rsyslog_client_log_dir }}' -type f -name '*.log'
   register: log_files
-  when: >
-    rsyslog_client_log_dir is defined
+  changed_when: false
+  when:
+    - rsyslog_client_log_dir is defined
+    - log_dir.stat.isdir
+
+- name: Union the log files
+  set_fact:
+    rsyslog_client_all_log_files: "{{ log_files.stdout_lines | default([]) | union(rsyslog_client_log_files) }}"
 
 - name: Write rsyslog config for found log files
   template:
@@ -39,10 +50,6 @@
     dest: "/etc/rsyslog.conf"
     owner: "root"
     group: "root"
-
-- name: Union the log files
-  set_fact:
-    rsyslog_client_all_log_files: "{{ log_files.stdout_lines | default([]) | union(rsyslog_client_log_files) }}"
 
 - name: Write rsyslog target file
   template:
