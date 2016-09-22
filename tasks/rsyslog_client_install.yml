@@ -14,9 +14,9 @@
 # limitations under the License.
 
 - include: rsyslog_client_install-apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
+  static: no
+  when: ansible_pkg_mgr == 'apt'
 
 - include: rsyslog_client_install-yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
+  static: no
+  when: ansible_pkg_mgr == 'yum'
