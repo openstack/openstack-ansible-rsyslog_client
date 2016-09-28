@@ -17,7 +17,7 @@
   hosts: localhost
   connection: local
   roles:
-    - role: "{{ rolename | basename }}"
+    - role: "rsyslog_client"
       rsyslog_client_log_rotate_file: test_log_rotate
       rsyslog_client_log_dir: "/var/log"
       rsyslog_client_config_name: "99-test-rsyslog-client.conf"
