@@ -38,7 +38,7 @@
   changed_when: false
   when:
     - rsyslog_client_log_dir is defined
-    - log_dir.stat.isdir
+    - log_dir.stat.isdir is defined and log_dir.stat.isdir
 
 - name: Union the log files
   set_fact:
