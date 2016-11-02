@@ -39,6 +39,9 @@
   when:
     - rsyslog_client_log_dir is defined
     - log_dir.stat.isdir is defined and log_dir.stat.isdir
+  tags:
+    # do not trigger ANSIBLE0013 as shell is indeed needed here
+    - skip_ansible_lint
 
 - name: Union the log files
   set_fact:
