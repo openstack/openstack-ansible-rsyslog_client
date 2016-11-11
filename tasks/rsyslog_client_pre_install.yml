@@ -23,6 +23,7 @@
     name: "syslog"
     groups: "adm"
     system: yes
+    shell: /bin/false
     state: present
 
 - name: Ensure ownership on working directory is correct
