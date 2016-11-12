@@ -29,6 +29,8 @@
 - name: Check if log dir exists
   stat:
     path: "{{ rsyslog_client_log_dir }}"
+  when:
+    - "{{ rsyslog_client_log_dir | bool }}"
   register: log_dir
 
 - name: Find all log files
@@ -37,7 +39,7 @@
   register: log_files
   changed_when: false
   when:
-    - rsyslog_client_log_dir is defined
+    - not log_dir | skipped
     - log_dir.stat.isdir is defined and log_dir.stat.isdir
 
 - name: Union the log files

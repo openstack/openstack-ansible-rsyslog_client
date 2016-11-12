@@ -26,6 +26,7 @@ rsyslog_client_spool_directory: /var/spool/rsyslog
 # discovery process. This will force the logs from a given directory
 # to be shipped using rsyslog.
 # rsyslog_client_log_dir: /var/log/project
+rsyslog_client_log_dir: false
 
 # Set the `rsyslog_client_log_files` variable in list format to skip
 # log discovery all together and ship only log files that are explicitly
