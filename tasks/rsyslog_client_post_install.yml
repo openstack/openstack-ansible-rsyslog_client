@@ -30,7 +30,7 @@
   stat:
     path: "{{ rsyslog_client_log_dir }}"
   when:
-    - "{{ rsyslog_client_log_dir | bool }}"
+    - "{{ rsyslog_client_log_dir is defined }}"
   register: log_dir
 
 - name: Find all log files
