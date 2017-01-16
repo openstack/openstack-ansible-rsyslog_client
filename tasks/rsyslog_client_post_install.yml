@@ -18,6 +18,8 @@
     name: "rsyslog"
     state: "stopped"
   failed_when: false
+  tags:
+    - rsyslog_client-install
 
 - name: Rsyslog Setup
   copy:
@@ -25,6 +27,8 @@
     dest: "/etc/rsyslog.d/50-default.conf"
     owner: "root"
     group: "root"
+  tags:
+    - rsyslog_client-install
 
 - name: Check if log dir exists
   stat:
@@ -32,6 +36,8 @@
   when:
     - "{{ rsyslog_client_log_dir is defined }}"
   register: log_dir
+  tags:
+    - rsyslog_client-install
 
 - name: Find all log files
   shell: |
@@ -44,10 +50,13 @@
   tags:
     # do not trigger ANSIBLE0013 as shell is indeed needed here
     - skip_ansible_lint
+    - rsyslog_client-config
 
 - name: Union the log files
   set_fact:
     rsyslog_client_all_log_files: "{{ log_files.stdout_lines | default([]) | union(rsyslog_client_log_files) }}"
+  tags:
+    - rsyslog_client-config
 
 - name: Write rsyslog config for found log files
   template:
@@ -55,6 +64,8 @@
     dest: "/etc/rsyslog.conf"
     owner: "root"
     group: "root"
+  tags:
+    - rsyslog_client-config
 
 - name: Write rsyslog target file
   template:
@@ -63,6 +74,8 @@
     owner: "root"
     group: "root"
   when: (rsyslog_client_all_log_files | length) > 0
+  tags:
+    - rsyslog_client-config
 
 - name: Write log rotate file
   template:
@@ -71,6 +84,8 @@
     owner: "root"
     group: "root"
   when: (rsyslog_client_all_log_files | length) > 0
+  tags:
+    - rsyslog_client-config
 
 - name: Configure logrotate to compress logs by default
   lineinfile:
@@ -78,8 +93,12 @@
     regexp: "^#compress"
     line: "compress"
     backrefs: yes
+  tags:
+    - rsyslog_client-install
 
 - name: Start rsyslog
   service:
     name: "rsyslog"
     state: "started"
+  tags:
+    - rsyslog_client-config
