@@ -40,21 +40,22 @@
     - rsyslog_client-install
 
 - name: Find all log files
-  shell: |
-    find -L '{{ rsyslog_client_log_dir }}' -type f -name '*.log'
+  find:
+    paths: "{{ rsyslog_client_log_dir }}"
+    patterns: "*.log"
+    recurse: yes
+    follow: yes
+    file_type: file
   register: log_files
   changed_when: false
   when:
     - not log_dir | skipped
-    - log_dir.stat.isdir is defined and log_dir.stat.isdir
   tags:
-    # do not trigger ANSIBLE0013 as shell is indeed needed here
-    - skip_ansible_lint
     - rsyslog_client-config
 
 - name: Union the log files
   set_fact:
-    rsyslog_client_all_log_files: "{{ log_files.stdout_lines | default([]) | union(rsyslog_client_log_files) }}"
+    rsyslog_client_all_log_files: "{{ log_files.files | map(attribute='path') | list | default([]) | union(rsyslog_client_log_files) }}"
   tags:
     - rsyslog_client-config
 
