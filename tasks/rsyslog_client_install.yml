@@ -13,10 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: rsyslog_client_install-apt.yml
-  static: no
-  when: ansible_pkg_mgr == 'apt'
+- name: Ensure apt cache is up to date
+  apt:
+    update_cache: yes
+    cache_valid_time: "{{ cache_timeout }}"
+  when:
+    - ansible_pkg_mgr == 'apt'
 
-- include: rsyslog_client_install-yum.yml
-  static: no
-  when: ansible_pkg_mgr == 'yum'
+- name: Install rsyslog packages
+  package:
+    pkg: "{{ item }}"
+    state: "{{ rsyslog_client_package_state }}"
+  register: install_packages
+  until: install_packages|success
+  retries: 5
+  delay: 2
+  with_items: "{{ rsyslog_client_distro_packages }}"
