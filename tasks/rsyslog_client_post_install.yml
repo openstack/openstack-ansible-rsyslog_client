@@ -13,14 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Stop rsyslog
-  service:
-    name: "rsyslog"
-    state: "stopped"
-  failed_when: false
-  tags:
-    - rsyslog_client-install
-
 - name: Rsyslog Setup
   copy:
     src: "50-default.conf"
@@ -29,6 +21,8 @@
     group: "root"
   tags:
     - rsyslog_client-install
+  notify:
+    - restart rsyslog
 
 - name: Check if log dir exists
   stat:
@@ -66,6 +60,8 @@
     group: "root"
   tags:
     - rsyslog_client-config
+  notify:
+    - restart rsyslog
 
 - name: Write rsyslog target file
   template:
@@ -76,6 +72,8 @@
   when: (rsyslog_client_all_log_files | length) > 0
   tags:
     - rsyslog_client-config
+  notify:
+    - restart rsyslog
 
 - name: Write log rotate file
   template:
@@ -95,10 +93,3 @@
     backrefs: yes
   tags:
     - rsyslog_client-install
-
-- name: Start rsyslog
-  service:
-    name: "rsyslog"
-    state: "started"
-  tags:
-    - rsyslog_client-config
