@@ -19,6 +19,7 @@
     dest: "/etc/rsyslog.d/50-default.conf"
     owner: "root"
     group: "root"
+  when: inventory_hostname not in groups['rsyslog_all']
   tags:
     - rsyslog_client-install
   notify:
@@ -67,6 +68,7 @@
     dest: "/etc/rsyslog.conf"
     owner: "root"
     group: "root"
+  when: inventory_hostname not in groups['rsyslog_all']
   tags:
     - rsyslog_client-config
   notify:
