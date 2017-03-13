@@ -65,7 +65,19 @@
   notify:
     - restart rsyslog
 
-- name: Write rsyslog target file
+- name: Write rsyslog config for remote logging
+  template:
+    src: "remote-logging.j2"
+    dest: "/etc/rsyslog.d/51-remote-logging.conf"
+    owner: "root"
+    group: "root"
+  when: (rsyslog_client_all_log_files | length) > 0
+  tags:
+    - rsyslog_client-config
+  notify:
+    - restart rsyslog
+
+- name: Write rsyslog config for converting logs into syslog messages
   template:
     src: "99-rsyslog.conf.j2"
     dest: "/etc/rsyslog.d/{{ rsyslog_client_config_name }}"
