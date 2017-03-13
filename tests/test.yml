@@ -47,6 +47,10 @@
         - nocreate
         - size 1G
   post_tasks:
+    - name: Open rsyslog remote logging file
+      slurp:
+        src: /etc/rsyslog.d/51-remote-logging.conf
+      register: rsyslog_remote_logging_file
     - name: Open rsyslog client file
       slurp:
         src: /etc/rsyslog.d/99-test-rsyslog-client.conf
@@ -57,12 +61,17 @@
       register: logrotate_client_file
     - name: Read files
       set_fact:
+        rsyslog_remote_logging_content: "{{ rsyslog_remote_logging_file.content | b64decode }}"
         rsyslog_client_content: "{{ rsyslog_test_client_file.content | b64decode }}"
         logrotate_client_content: "{{ logrotate_client_file.content | b64decode }}"
     - name: Check rsyslog defaults file
       stat:
         path: /etc/rsyslog.d/50-default.conf
       register: rsyslog_default_file
+    - name: Check rsyslog remote logging config file
+      stat:
+        path: /etc/rsyslog.d/51-remote-logging.conf
+      register: rsyslog_remote_logging_conf
     - name: Check rsyslog client file
       stat:
         path: /etc/rsyslog.d/99-test-rsyslog-client.conf
@@ -74,10 +83,10 @@
     - name: Check role functions
       assert:
         that:
-          - "'$ActionQueueFileName test1' in rsyslog_client_content"
-          - "'$ActionQueueFileName test2' in rsyslog_client_content"
-          - "'$ActionQueueFileName test-splunk1' in rsyslog_client_content"
-          - "'$ActionQueueFileName test-loggly1' in rsyslog_client_content"
+          - "'$ActionQueueFileName test1' in rsyslog_remote_logging_content"
+          - "'$ActionQueueFileName test2' in rsyslog_remote_logging_content"
+          - "'$ActionQueueFileName test-splunk1' in rsyslog_remote_logging_content"
+          - "'$ActionQueueFileName test-loggly1' in rsyslog_remote_logging_content"
           # check for log files that are explicitly defined in rsyslog_client_log_files
           - "'/var/log/dmesg' in logrotate_client_content"
           - "'/var/log/udev' in logrotate_client_content"
@@ -88,5 +97,6 @@
              or '/var/log/yum.log' in logrotate_client_content"
           - "'size 1G' in logrotate_client_content"
           - "rsyslog_default_file.stat.exists"
+          - "rsyslog_remote_logging_conf.stat.exists"
           - "rsyslog_client_file.stat.exists"
           - "logrotate_file.stat.exists"
