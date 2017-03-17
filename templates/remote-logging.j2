@@ -11,10 +11,10 @@ $ActionQueueSaveOnShutdown on
 $ActionQueueType LinkedList
 $ActionResumeRetryCount 250
 {% if rsyslog_client_tcp_reception == true %}
-*.* @@{{ hostvars[server]['ansible_host'] }}:{{ rsyslog_client_tcp_port }};RFC3164fmt
+local7.* @@{{ hostvars[server]['ansible_host'] }}:{{ rsyslog_client_tcp_port }};RFC3164fmt
 {% endif %}
 {% if rsyslog_client_udp_reception == true %}
-*.* @{{ hostvars[server]['ansible_host'] }}:{{ rsyslog_client_udp_port }};RFC3164fmt
+local7.* @{{ hostvars[server]['ansible_host'] }}:{{ rsyslog_client_udp_port }};RFC3164fmt
 {% endif %}
 
 {% endfor %}
@@ -31,9 +31,9 @@ $ActionResumeRetryCount 250
 {{ target.template }}
 {% endif %}
 {% if target.proto == "udp" %}
-{% set action_sting = '*.* @' %}
+{% set action_sting = 'local7.* @' %}
 {% elif target.proto == "tcp" %}
-{% set action_sting = '*.* @@' %}
+{% set action_sting = 'local7.* @@' %}
 {% endif %}
 {% if target.action_options is defined %}
 {{ action_sting }}{{ target.hostname }}:{{ target.port }};{{ target.action_options }}
