@@ -8,6 +8,7 @@
 {% endfor %}
 {% endif %}
 {% if rsyslog_client_log_rotate_scripts | length > 0 %}
+        sharedscripts
 {% for script in rsyslog_client_log_rotate_scripts %}
         {{ script.name }}
             {{ script.content | default(rsyslog_client_reload) }}
