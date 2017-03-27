@@ -21,4 +21,4 @@ rsyslog_client_distro_packages:
   - rsyslog
   - logrotate
 
-rsyslog_client_reload: 'invoke-rc.d rsyslog rotate > /dev/null || true'
+rsyslog_client_reload: 'systemctl restart rsyslog > /dev/null 2>&1 || true'
