@@ -93,8 +93,10 @@
           # check for a log file that should be discovered via rsyslog_client_log_dir
           # /var/log/kern.log should exist on Ubuntu
           # /var/log/yum.log should exist on CentOS
+          # /var/log/zypper.log should exist on openSUSE
           - "'/var/log/kern.log' in logrotate_client_content
-             or '/var/log/yum.log' in logrotate_client_content"
+             or '/var/log/yum.log' in logrotate_client_content
+             or '/var/log/zypper.log' in logrotate_client_content"
           - "'size 1G' in logrotate_client_content"
           - "rsyslog_default_file.stat.exists"
           - "rsyslog_remote_logging_conf.stat.exists"

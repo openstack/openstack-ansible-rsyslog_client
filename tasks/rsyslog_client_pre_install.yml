@@ -32,3 +32,10 @@
     state: "directory"
     owner: "syslog"
     group: "adm"
+
+- name: Remove conflicting distro packages
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ rsyslog_client_distro_packages_remove | default([]) }}"

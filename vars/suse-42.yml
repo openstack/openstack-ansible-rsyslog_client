@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2017, SUSE LINUX GmbH.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,25 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-galaxy_info:
-  author: rcbops
-  description: Rsyslog log client setup
-  company: Rackspace
-  license: Apache2
-  min_ansible_version: 1.6.6
-  platforms:
-    - name: Ubuntu
-      versions:
-        - xenial
-    - name: EL
-      versions:
-        - 7
-    - name: opensuse
-      versions:
-        - all
-  categories:
-    - client
-    - rsyslog
-    - development
-    - openstack
-dependencies: []
+rsyslog_client_distro_packages:
+  - rsyslog
+  - logrotate
+
+rsyslog_client_distro_packages_remove:
+  - systemd-logger # conflicts with rsyslog
+
+rsyslog_client_reload: 'systemctl -q restart rsyslogd || true'
