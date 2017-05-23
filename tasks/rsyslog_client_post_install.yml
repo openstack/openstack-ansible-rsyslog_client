@@ -29,7 +29,7 @@
   stat:
     path: "{{ rsyslog_client_log_dir }}"
   when:
-    - "{{ rsyslog_client_log_dir is defined }}"
+    - "rsyslog_client_log_dir is defined"
   register: log_dir
   tags:
     - rsyslog_client-install
