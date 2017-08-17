@@ -90,13 +90,13 @@
           # check for log files that are explicitly defined in rsyslog_client_log_files
           - "'/var/log/dmesg' in logrotate_client_content"
           - "'/var/log/udev' in logrotate_client_content"
-          # check for a log file that should be discovered via rsyslog_client_log_dir
-          # /var/log/kern.log should exist on Ubuntu
-          # /var/log/yum.log should exist on CentOS
-          - "'/var/log/kern.log' in logrotate_client_content
-             or '/var/log/yum.log' in logrotate_client_content"
           - "'size 1G' in logrotate_client_content"
           - "rsyslog_default_file.stat.exists"
           - "rsyslog_remote_logging_conf.stat.exists"
           - "rsyslog_client_file.stat.exists"
           - "logrotate_file.stat.exists"
+    - name: Trigger postrotate to see if rotation can happen
+      command: logrotate -vf /etc/logrotate.conf
+      register: logrotation_output
+      tags:
+        - skip_ansible_lint
