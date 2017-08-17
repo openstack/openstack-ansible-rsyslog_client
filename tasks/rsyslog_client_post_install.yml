@@ -48,9 +48,12 @@
   tags:
     - rsyslog_client-config
 
+# The log files to handle/rotate are the files you can find
+# in your log folder - the ones already defined for your
+# distribution + the ones you decide to do manually
 - name: Union the log files
   set_fact:
-    rsyslog_client_all_log_files: "{{ log_files.files | map(attribute='path') | list | default([]) | union(rsyslog_client_log_files) }}"
+    rsyslog_client_all_log_files: "{{ log_files.files | map(attribute='path') | list | default([]) | union(rsyslog_client_log_files) | difference(rsyslog_client_already_handled_files) }}"
   when:
     - rsyslog_client_log_dir is defined
   tags:
@@ -58,7 +61,7 @@
 
 - name: Set rsyslog_client_all_log_files when log_files does not exist
   set_fact:
-    rsyslog_client_all_log_files: "{{ rsyslog_client_log_files }}"
+    rsyslog_client_all_log_files: "{{ rsyslog_client_log_files | difference(rsyslog_client_already_handled_files) }}"
   when:
     - rsyslog_client_log_dir is not defined
 

@@ -61,7 +61,7 @@ rsyslog_client_log_rotate_options:
   - nocreate
 rsyslog_client_log_rotate_scripts:
   - name: postrotate
-    content: "restart rsyslog 2>&1 || true"
+    content: "{{ rsyslog_client_reload }}"
 
 # Set the `rsyslog_client_user_defined_targets` to define specific log targets.
 # This option will allow you to define multiple log targets with different templates
