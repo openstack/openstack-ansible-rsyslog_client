@@ -20,4 +20,6 @@ rsyslog_client_distro_packages:
 rsyslog_client_distro_packages_remove:
   - systemd-logger # conflicts with rsyslog
 
+rsyslog_client_already_handled_files: []
+
 rsyslog_client_reload: 'systemctl -q restart rsyslogd || true'
