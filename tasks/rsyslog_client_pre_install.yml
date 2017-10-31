@@ -23,6 +23,7 @@
     name: "syslog"
     groups: "adm"
     system: yes
+    append: yes
     shell: /bin/false
     state: present
 
