@@ -32,7 +32,7 @@
     - "{{ rsyslog_client_log_dir is defined }}"
   register: log_dir
   tags:
-    - rsyslog_client-install
+    - rsyslog_client-config
 
 - name: Find all log files
   find:
