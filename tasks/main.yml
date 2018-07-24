@@ -25,12 +25,12 @@
   tags:
     - always
 
-- include: rsyslog_client_pre_install.yml
+- include_tasks: rsyslog_client_pre_install.yml
   tags:
     - rsyslog_client-install
 
-- include: rsyslog_client_install.yml
+- include_tasks: rsyslog_client_install.yml
   tags:
     - rsyslog_client-install
 
-- include: rsyslog_client_post_install.yml
+- include_tasks: rsyslog_client_post_install.yml
