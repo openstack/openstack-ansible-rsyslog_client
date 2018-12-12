@@ -23,3 +23,13 @@ rsyslog_client_distro_packages_remove:
 rsyslog_client_already_handled_files: []
 
 rsyslog_client_reload: 'systemctl -q restart rsyslogd || true'
+
+rsyslog_system_logfile: /var/log/messages
+
+rsyslog_logfile_user: root
+
+rsyslog_logfile_group: root
+
+rsyslog_logfile_drop_user: root
+
+rsyslog_logfile_drop_group: root

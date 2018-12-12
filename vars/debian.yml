@@ -26,3 +26,13 @@ rsyslog_client_already_handled_files:
   - /var/log/auth.log
 
 rsyslog_client_reload: 'systemctl restart rsyslog > /dev/null 2>&1 || true'
+
+rsyslog_system_logfile: /var/log/syslog
+
+rsyslog_logfile_user: syslog
+
+rsyslog_logfile_group: adm
+
+rsyslog_logfile_drop_user: syslog
+
+rsyslog_logfile_drop_group: syslog
