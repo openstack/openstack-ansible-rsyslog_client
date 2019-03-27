@@ -20,3 +20,13 @@ rsyslog_client_distro_packages:
 rsyslog_client_reload: 'systemctl restart rsyslog 2>&1 || true'
 
 rsyslog_client_already_handled_files: []
+
+rsyslog_system_logfile: /var/log/messages
+
+rsyslog_logfile_user: root
+
+rsyslog_logfile_group: root
+
+rsyslog_logfile_drop_user: root
+
+rsyslog_logfile_drop_group: root

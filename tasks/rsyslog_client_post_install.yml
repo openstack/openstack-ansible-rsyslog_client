@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Rsyslog Setup
-  copy:
+  template:
     src: "50-default.conf"
     dest: "/etc/rsyslog.d/50-default.conf"
     owner: "root"
