@@ -44,7 +44,7 @@
   register: log_files
   changed_when: false
   when:
-    - not log_dir | skipped
+    - not (log_dir is skipped)
   tags:
     - rsyslog_client-config
 
