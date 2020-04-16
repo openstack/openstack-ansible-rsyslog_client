@@ -19,7 +19,8 @@ rsyslog_client_distro_packages:
 
 rsyslog_client_reload: 'systemctl restart rsyslog 2>&1 || true'
 
-rsyslog_client_already_handled_files: []
+rsyslog_client_already_handled_files:
+  - /var/log/yum.log
 
 rsyslog_system_logfile: /var/log/messages
 
